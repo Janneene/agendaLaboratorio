@@ -1,6 +1,6 @@
 CREATE TABLE `tb_agendamento` (
   `id_agendamento` int(11) NOT NULL,
-  `data` date NOT NULL,
+  `data_pedido` date NOT NULL,
   `data_agendamento` date NOT NULL,
   `id_professor` int(11) NOT NULL,
   `id_laboratorio` int(11) NOT NULL
