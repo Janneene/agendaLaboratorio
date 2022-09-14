@@ -46,7 +46,7 @@ $query_professor = mysqli_query($con, "SELECT * FROM tb_professor");
 <!-- Fim Menu -->
 </div> <br><br><br><br><br>
 
-<form id="form_agendamento" autocomplete="off" name="form_agendamento" method="post" action="recebe_form_agendamento.php">
+<form id="form_agendamento" autocomplete="off" name="form_agendamento" method="post" action="validacao/recebe_form_agendamento.php">
 	<fieldset>
         <legend>Agendamento</legend>
         <label>Data:</label><input class="campo_nome" type="date" name="data_agendamento" value='<?php echo date("Y-m-d"); ?>' required ><br>
