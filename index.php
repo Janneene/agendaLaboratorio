@@ -17,25 +17,45 @@ $host = "localhost";
 $user= "root";
 $pass = "";
 $banco = "bd_agenda_lab";
- 
+
+$data_hoje = date('Y-m-d');
+$horas = array("Livre","Livre","Livre","Livre");
+$count = count($horas);
+$i = 0;
+$nome_professor = '';
+
+
 $con = new mysqli($host, $user, $pass, $banco);
 
 
-//Select laboratórios
+//SELECTS
 $query_lab = mysqli_query($con, "SELECT * FROM tb_laboratorio");
+$query_agendamento = mysqli_query($con, "SELECT * FROM tb_agendamento WHERE data_agendamento = '$data_hoje'");
 
 
-//Select agendamento
-$query_agendamento = mysqli_query($con, "SELECT * FROM tb_agendamento");
+while($aux = mysqli_fetch_array($query_agendamento)){
+  $hora = $aux['hora_inicio'];
 
+  $contador = 8;
+  for ($i=0; $i < $count; $i++) { 
 
-//Select professores
-$query_professor = mysqli_query($con, "SELECT * FROM tb_professor");
-
-
+    if($contador == $hora){
+      
+      $horas[$i] = $aux['id_professor'];
+      
+      $query_professor = mysqli_query($con, "SELECT * FROM tb_professor WHERE id_professor =  $horas[$i]" );
+      while($aux2 = mysqli_fetch_array($query_professor)){
+        $nomeprof = $aux2['nome'];
+        $horas[$i] = $nomeprof;
+      }
+    }
+    $contador++;
+    
+  }
+ 
+}
 
 ?>
-
 
 
 <!-- Menu próprio do index -->
@@ -86,11 +106,13 @@ $query_professor = mysqli_query($con, "SELECT * FROM tb_professor");
     <?php while($prod = mysqli_fetch_array($query_lab)){ ?>
     <tr>
       <th scope="row"><?php echo($prod['nome']) ?></th> 
-      <td>Fulano</td>
-      <td>Fulano</td>
-      <td>Livre</td>
-      <td>Livre</td>
-    </tr>  <?php } ?>
+      <?php 
+       // foreach($horas as $value){ 
+        for ($i = 0; $i < $count; $i++){
+      ?>
+        <td> <?php echo "{$horas[$i]}\n"; ?> </td> <?php } ?>
+      </tr><?php  } ?>
+
     
     <!--<tr>
       <th scope="row">Informática A</th>
