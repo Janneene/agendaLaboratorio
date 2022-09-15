@@ -30,9 +30,38 @@ echo"Falha na conexao";
 	//echo"Funcionou";
 }
 
-$sql = " INSERT INTO tb_agendamento ( data_pedido, data_agendamento, id_professor, id_laboratorio) VALUES ( '{$data_formata}', '{$data_hoje}', {$id_professor}, {$id_laboratorio}) ";
+//Verificar colisão de horários
 
+$sqlSelect = "SELECT * tb_agendamento";
+
+
+
+//Inserir dados na tabela
+$sql = " INSERT INTO tb_agendamento ( data_pedido, data_agendamento, id_professor, id_laboratorio) VALUES ( '{$data_formata}', '{$data_hoje}', {$id_professor}, {$id_laboratorio}) ";
 
 mysqli_query($con, $sql)
 
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../estilos/estilo.css" rel="stylesheet">
+	<title>Agendamento</title>
+	<?php require '../estilos/bootstrap.php' ?>
+	<?php require '../estilos/menu.php' ?>
+</head>
+<body>
+<div class="center">
+	<div class="alert alert-success" role="alert">
+	
+		Seu agendamento foi realizado com sucesso!
+  		Confira a tabela de agendamentos em "Home"!
+	</div>
+  
+</div>
+
+</body>
+</html>
