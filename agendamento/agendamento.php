@@ -36,15 +36,23 @@ $query_professor = mysqli_query($con, "SELECT * FROM tb_professor");
 <body>
 
 
-<div class="grid text-center">
-	<div class="g-col-6">
+<div class="container">
 		<form id="form_agendamento" autocomplete="off" name="form_agendamento" method="post" action="../validacao/recebe_form_agendamento.php">
-			<fieldset>
-       		<legend>Agendamento</legend>
-        	<label>Data:</label><input class="campo_nome" type="date" name="data_agendamento" value='<?php echo date("Y-m-d"); ?>' required ><br>
-
-        	<label>Hora início</label> 
-        		<select name="hora_inicio" id="dropHrInicio" >
+			<div class="grid text-center">
+       			<legend>Agendamento</legend>
+       		</div>
+			
+			<div class="form-group">
+        		<div class="col-md-6 offset-md-3">
+        	<label>Data:</label>
+        		<input class="form-control" type="date" name="data_agendamento" value='<?php echo date("Y-m-d"); ?>' required ><br>
+        	</div>
+        </div>
+        	<div class="row gx-6">
+        	
+        		<div class="col-md-3 offset-md-3">
+				<label>Hora início</label> 
+        		<select class="form-select" name="hora_inicio" id="dropHrInicio" >
   					<option value="8">08h</option>
  					<option value="9">09h</option>
  					<option value="10">10h</option>
@@ -53,11 +61,13 @@ $query_professor = mysqli_query($con, "SELECT * FROM tb_professor");
  					<option value="14">14h</option>
  					<option value="15">15h</option>
  					<option value="16">16h</option>
-				</select> <br>
+				</select> 
 
-
-        	<label>Hora Fim</label>
-				<select name="hora_fim" id="dropHrFim" >
+        		</div>
+        	
+        		<div class="col-md-3">
+				<label>Hora Fim</label>
+				<select class="form-select" name="hora_fim" id="dropHrFim" >
  					<option value="9">09h</option>
  					<option value="10">10h</option>
  					<option value="11">11h</option>
@@ -68,31 +78,44 @@ $query_professor = mysqli_query($con, "SELECT * FROM tb_professor");
  					<option value="16">16h</option>
  					<option value="17">17h</option>
 				</select> <br>
+        			
+        	
+        	</div>
 
+        </div>
+        	<div class="form-group">
+        		<div class="col-md-6 offset-md-3">
 
-
-
-        	<label for="lab">Escolha o Laboratório: </label>
-			<select name="labs" id="dropLab" >
-  				<option>Selecione... </option>
+        			<label for="lab">Escolha o Laboratório: </label>
+					<select class="form-select" name="labs" id="dropLab" >
+  					<option>Selecione... </option>
   				<?php while($prod = mysqli_fetch_array($query)) { ?>
- 					<option value="<?php echo $prod['id_laboratorio'] ?>"><?php echo $prod['nome'] ?></option>
+ 					<option value="<?php echo $prod['id_laboratorio'] ?>"><?php echo $prod['nome_laboratorio'] ?></option>
  				<?php } ?>
 			</select> <br>
+        		</div>
+        	</div> 
 
-			<label for="lab">Escolha o professor: </label>
-			<select name="prof" id="dropProf">
-  				<option>Selecione... </option>
+        	<div class="form-group">
+        		<div class="col-md-6 offset-md-3">
+        			<label for="lab">Escolha o professor: </label>
+					<select class="form-select" name="prof" id="dropProf">
+  					<option>Selecione... </option>
   				<?php while($prod = mysqli_fetch_array($query_professor)) { ?>
- 					<option value="<?php echo $prod['id_professor'] ?>"><?php echo $prod['nome'] ?></option>
+ 					<option value="<?php echo $prod['id_professor'] ?>"><?php echo $prod['nome_professor'] ?></option>
  				<?php } ?>
 			</select> <br>
+        			
+        		</div>
+        	</div> 
 
-
-
-
-        	<input class="btn_submit" type="submit" value="Agendar" >
-    		</fieldset>
+			
+			<div class="grid text-center">
+            	<div class="col-md-6 offset-md-3">
+                	<input type="submit" value="Agendar" class="btn btn-success" name="">
+            	</div>
+        	</div>
+  
 		</form>
 	</div>
 </div>
