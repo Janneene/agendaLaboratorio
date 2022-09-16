@@ -27,7 +27,7 @@ $query = mysqli_query($con, "SELECT * FROM tb_laboratorio");
 
 
 while($prod = mysqli_fetch_array($query)){
-	$nome_b = $prod['nome'];
+	$nome_b = $prod['nome_laboratorio'];
 
 
 	if($nome== $nome_b){
@@ -41,7 +41,7 @@ if ($variavel_controle == 0){
 
 
 
-	$sql = " INSERT INTO tb_laboratorio ( nome) VALUES ( '{$nome}') ";
+	$sql = " INSERT INTO tb_laboratorio ( nome_laboratorio) VALUES ( '{$nome}') ";
 
 	mysqli_query($con, $sql);
 }
