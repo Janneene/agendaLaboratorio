@@ -1,69 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home</title>
-	<link href="estilos/estilo.css" rel="stylesheet">
-	<?php require 'estilos/bootstrap.php' ?>
-</head>
-<body>
-
-
 <?php 
 
 ini_set('display_errors', 1);
+
+
 $host = "localhost";
 $user= "root";
 $pass = "";
 $banco = "bd_agenda_lab";
-
-$data_hoje = date('Y-m-d');
-$horas = array("Livre","Livre","Livre","Livre");
-$count = count($horas);
-$i = 0;
-$nome_professor = '';
-
-
-$con = new mysqli($host, $user, $pass, $banco);
-
-
-//SELECTS
-$query_lab = mysqli_query($con, "SELECT * FROM tb_laboratorio");
-$query_agendamento = mysqli_query($con, "SELECT * FROM tb_agendamento WHERE data_agendamento = '$data_hoje'");
-
-
-while($aux = mysqli_fetch_array($query_agendamento)){
-  $hora = $aux['hora_inicio'];
-
-  $contador = 8;
-  for ($i=0; $i < $count; $i++) { 
-
-    if($contador == $hora){
-      
-      $horas[$i] = $aux['id_professor'];
-      
-      $query_professor = mysqli_query($con, "SELECT * FROM tb_professor WHERE id_professor =  $horas[$i]" );
-      while($aux2 = mysqli_fetch_array($query_professor)){
-        $nomeprof = $aux2['nome'];
-        $horas[$i] = $nomeprof;
-      }
-    }
-    $contador++;
-    
-  }
  
+$con = new mysqli($host, $user, $pass, $banco);
+  
+if($con->connect_errno)
+{
+  echo"Falha na conexao";
+}else{
+  //echo"Funcionou";
 }
 
+
+$arrayLab = array();
+$arrayProf = array();
+$arrayData = array();
+$arrayHoraInicio = array();
+$arrayHoraFim = array();
+$tamanhoArray = 0;
+
+$query_lista = mysqli_query($con, "SELECT * FROM tb_agendamento INNER JOIN tb_laboratorio ON tb_agendamento.id_laboratorio = tb_laboratorio.id_laboratorio 
+  INNER JOIN tb_professor ON tb_agendamento.id_professor = tb_professor.id_professor 
+  ORDER BY tb_agendamento.data_agendamento DESC");
+
+while($aux = mysqli_fetch_array($query_lista)){
+  array_push($arrayLab, $aux['nome_laboratorio']);
+  array_push($arrayProf, $aux['nome_professor']);
+  array_push($arrayData, $aux['data_agendamento']);
+  array_push($arrayHoraInicio, $aux['hora_inicio']);
+  array_push($arrayHoraFim, $aux['hora_fim']);
+
+  $tamanhoArray = count($arrayLab);
+}
+
+
+//SELECT id FROM table ORDER BY date DESC
 ?>
-
-
+<!-- deixar em lista e ordenar por data -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <link href="estilos/estilo.css" rel="stylesheet">
+  <?php require 'estilos/bootstrap.php' ?>
+</head>
+<body>
 <!-- Menu próprio do index -->
 
 <nav class="navbar" >
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">IFRO</a>
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="imagem/logo_ifro.png" alt="IFRO logo" width="30" height="30">
+    </a>
+  </div>
+  <a class="navbar-brand" href="index.php">IFRO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -79,7 +79,10 @@ while($aux = mysqli_fetch_array($query_agendamento)){
         <a class="nav-link" href="professor/cadProfessor.php">Professor</a>
       </li>
       <li class="nav-item">
-      	<a class="nav-link" href="laboratorio/cadLaboratorio.php">Laboratório</a>
+        <a class="nav-link" href="laboratorio/cadLaboratorio.php">Laboratório</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="relatorio/relatorio.php">Relatório</a>
       </li>
     </ul>
   </div>
@@ -91,36 +94,31 @@ while($aux = mysqli_fetch_array($query_agendamento)){
 
 <!-- Manhã -->
 <table class="table">
-	<!-- Horários -->
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">08h</th>
-      <th scope="col">09h</th>
-      <th scope="col">10h</th>
-      <th scope="col">11h</th>
-    </tr>
-  </thead>
+  <!-- Horários -->
   <!--Laboratórios-->
   <tbody>
-    <?php while($prod = mysqli_fetch_array($query_lab)){ ?>
-    <tr>
-      <th scope="row"><?php echo($prod['nome']) ?></th> 
-      <?php 
-       // foreach($horas as $value){ 
-        for ($i = 0; $i < $count; $i++){
-      ?>
-        <td> <?php echo "{$horas[$i]}\n"; ?> </td> <?php } ?>
-      </tr><?php  } ?>
 
+    <tr>
+      <th> Laboratório </th>
+      <th> Professor </th>
+      <th> Data Agendada </th>
+      <th> Hora início </th>
+      <th> Hora Fim </th> 
+    </tr>
+    <?php for ($i=0; $i < $tamanhoArray ; $i++) { ?>
+      <tr>
+        <td> <?php  echo($arrayLab[$i]);  ?> </td>
+        <td> <?php  echo($arrayProf[$i]);  ?> </td>
+        <td> <?php  echo date('d/m/Y', strtotime ($arrayData[$i])); ?></td>
+        <td> <?php  echo($arrayHoraInicio[$i]);  ?> h</td>
+        <td> <?php  echo($arrayHoraFim[$i]);  ?> h</td>
+      </tr>
+    <?php }
+
+
+
+    ?>
     
-    <!--<tr>
-      <th scope="row">Informática A</th>
-      <td>Fulano</td>
-      <td>Fulano</td>
-      <td>Livre</td>
-      <td>Livre</td>
-    </tr> -->
 
   </tbody>
 </table>
