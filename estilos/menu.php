@@ -15,7 +15,12 @@
   <!-- Navbar content -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">IFRO</a>
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="../imagem/logo_ifro.png" alt="IFRO logo" width="30" height="30">
+    </a>
+  </div>
+  <a class="navbar-brand" href="../index.php">IFRO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -32,6 +37,9 @@
       </li>
       <li class="nav-item">
       	<a class="nav-link" href="../laboratorio/cadLaboratorio.php">Laboratório</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../relatorio/relatorio.php">Relatório</a>
       </li>
     </ul>
   </div>
