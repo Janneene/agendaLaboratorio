@@ -109,7 +109,6 @@ if ($variavel_controle == 0){
   	  ?>
 
 </div>
-
 </body>
 </html>
 
