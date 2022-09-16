@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 16-Set-2022 às 17:25
+-- Tempo de geração: 16-Set-2022 às 22:43
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.6
 
@@ -45,7 +45,7 @@ CREATE TABLE `tb_agendamento` (
 
 CREATE TABLE `tb_laboratorio` (
   `id_laboratorio` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL
+  `nome_laboratorio` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -56,7 +56,7 @@ CREATE TABLE `tb_laboratorio` (
 
 CREATE TABLE `tb_professor` (
   `id_professor` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL,
+  `nome_professor` varchar(50) NOT NULL,
   `matricula` int(11) DEFAULT NULL,
   `telefone` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
