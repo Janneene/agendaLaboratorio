@@ -27,7 +27,7 @@ $query = mysqli_query($con, "SELECT * FROM tb_professor");
 
 
 while($prod = mysqli_fetch_array($query)){
-	$nome_b = $prod['nome'];
+	$nome_b = $prod['nome_professor'];
 	$matricula_b = $prod['matricula']; 
 
 
@@ -42,7 +42,7 @@ if ($variavel_controle == 0){
 
 
 
-	$sql = " INSERT INTO tb_professor ( nome, matricula, telefone) VALUES ( '{$nome}',{$matricula}, '{$telefone}') ";
+	$sql = " INSERT INTO tb_professor ( nome_professor, matricula, telefone) VALUES ( '{$nome}',{$matricula}, '{$telefone}') ";
 
 	mysqli_query($con, $sql);
 }
