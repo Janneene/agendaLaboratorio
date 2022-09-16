@@ -11,19 +11,25 @@
 <body>
 
 
-<div class="grid text-center">
-	<div class="g-col-6">
-		<form id="form_agendamento" autocomplete="off" name="form_agendamento" method="post" action="../validacao/recebe_form_cadLaboratorio.php">
-			<fieldset>
-       		<legend>Laboratório</legend>
-        	<label>Nome:</label><input class="campo_nome" type="text" name="nome_laboratorio" placeholder="Informática B" ><br>
-
-        	<input class="btn_submit" type="submit" value="Cadastrar" >
-    		</fieldset>
+<div class="container">
+		<form id="form_professor" autocomplete="off" name="form_professor" method="post" action="../validacao/recebe_form_cadLaboratorio.php">
+			<div class="grid text-center">
+				<legend>Laboratório</legend>
+			</div>
+			
+        	<div class="form-group">
+        		<div class="col-md-6 offset-md-3">
+        			<label>Nome:</label>
+        			<input class="form-control" type="text" name="nome_laboratorio" placeholder="Biologia">  
+        		</div>
+        	</div> <br>
+        	<div class="grid text-center">
+            	<div class="col-md-6 offset-md-3">
+                	<input type="submit" value="Cadastrar" class="btn btn-success" name="">
+            	</div>
+        	</div>
+        	
 		</form>
 	</div>
-</div>
-
-
 </body>
 </html>
